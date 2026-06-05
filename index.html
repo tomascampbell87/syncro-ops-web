@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Syncro Ops — Automatización e IA para PyMEs</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='45' height='45' fill='%230D0F14'/><rect x='55' y='0' width='45' height='45' fill='%230D0F14'/><rect x='0' y='55' width='45' height='45' fill='%230D0F14'/><rect x='55' y='55' width='28' height='28' fill='%230D0F14'/></svg>">
   <!-- SEO Meta Tags -->
   <meta name="description" content="Diseñamos e implementamos operaciones autónomas para su empresa. Relevamos su administración, eliminamos la carga manual de datos e interconectamos sus sistemas actuales.">
   <meta name="author" content="Syncro Ops">
@@ -1702,12 +1703,12 @@
 
         <div class="form-card">
           <!-- Contact Form (Web3Forms API Integration) -->
-          <form id="lead-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <form id="lead-form" novalidate>
             <!-- Web3Forms Config Hidden Fields -->
             <input type="hidden" name="access_key" value="a30e1a5d-3236-4895-bd4d-677fe5412463">
             <input type="hidden" name="subject" value="Nuevo Lead - Sesión Estratégica Syncro Ops">
             <input type="hidden" name="from_name" value="Web Syncro Ops">
-            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+            <input type="hidden" name="botcheck" value="">
 
             <div class="form-group">
               <label for="full-name" class="form-label">Nombre del contacto *</label>
@@ -1998,15 +1999,13 @@
     const leadForm = document.getElementById('lead-form');
     const formSuccess = document.getElementById('form-success');
 
-    leadForm.addEventListener('submit', function(e) {
+    leadForm.addEventListener('submit', async function(e) {
       e.preventDefault();
-      
+
       // Basic validation
       const name = document.getElementById('full-name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
       const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('mensaje').value.trim();
-      
+
       if (!name || !email) {
         alert('Por favor completá tu nombre y email.');
         return;
@@ -2016,37 +2015,45 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Enviando...';
 
-      // Submit form data using Fetch API to Web3Forms
-      const formData = new FormData(leadForm);
-      const object = Object.fromEntries(formData);
-      const json = JSON.stringify(object);
+      // Build JSON payload explicitly (avoid FormData issues with checkbox)
+      const payload = {
+        access_key: 'a30e1a5d-3236-4895-bd4d-677fe5412463',
+        subject: 'Nuevo Lead - Sesión Estratégica Syncro Ops',
+        from_name: 'Web Syncro Ops',
+        botcheck: '',
+        nombre: name,
+        email: email,
+        whatsapp: document.getElementById('phone').value.trim(),
+        mensaje: document.getElementById('mensaje').value.trim()
+      };
 
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: json
-      })
-      .then(async (response) => {
-        let res = await response.json();
-        if (response.status === 200) {
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const res = await response.json();
+
+        if (response.ok && res.success) {
           leadForm.style.display = 'none';
           formSuccess.style.display = 'block';
         } else {
-          console.error(res);
+          console.error('Web3Forms error:', res);
           alert(res.message || 'Algo salió mal. Por favor intente de nuevo.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Solicitar Relevamiento Operativo →';
         }
-      })
-      .catch(error => {
-        console.error(error);
-        alert('Algo salió mal. Por favor intente de nuevo.');
-      })
-      .then(() => {
+      } catch (error) {
+        console.error('Network error:', error);
+        alert('Error de conexión. Por favor intente de nuevo.');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Solicitar Relevamiento Operativo →';
-      });
+      }
     });
 
     // ── SMOOTH SCROLL ACCESSIBILITY ──
