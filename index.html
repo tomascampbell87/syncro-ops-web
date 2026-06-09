@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syncro Ops — Automatización e IA para PyMEs</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Diseñamos e implementamos operaciones autónomas para su empresa. Relevamos su administración, eliminamos la carga manual de datos e interconectamos sus sistemas actuales.">
+  <meta name="author" content="Syncro Ops">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Archivo:wght@800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── SYSTEM DESIGN TOKENS (Brand Kit) ── */
+    :root {
+      --ink: #0D0F14;
+      --ink-soft: #1C2030;
+      --surface: #F4F3EE;
+      --surface-2: #E8E6DC;
+      --line: #D0CEC2;
+      --accent: #00D4A1;
+      --accent-2: #FF5C3A;
+      --accent-3: #2563FF;
+      --white: #FFFFFF;
+      --mono: 'Space Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+      --display: 'Archivo', sans-serif;
+      --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .text-accent { color: var(--accent) !important; }
+    .text-accent-2 { color: var(--accent-2) !important; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; background-color: var(--surface); color: var(--ink); font-size: 16px; }
+
+    body {
+      font-family: var(--sans);
+      background-color: var(--surface);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background-color: var(--accent); color: var(--ink); }
+
+    h1, h2, h3, h4 { font-family: var(--display); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+
+    p { font-family: var(--sans); font-weight: 400; color: rgba(13, 15, 20, 0.8); }
+
+    a { text-decoration: none; color: inherit; transition: var(--transition-smooth); }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .swiss-border { border: 1px solid var(--line); }
+    .border-top { border-top: 1px solid var(--line); }
+    .border-bottom { border-bottom: 1px solid var(--line); }
+    .border-left { border-left: 1px solid var(--line); }
+    .border-right { border-right: 1px solid var(--line); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      border: none;
+      white-space: nowrap;
+    }
+
+    .btn-accent { background-color: var(--accent); color: var(--ink); }
+    .btn-accent:hover { background-color: var(--white); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 212, 161, 0.2); }
+
+    .btn-outline { background-color: transparent; color: var(--ink); border: 2px solid var(--ink); }
+    .btn-outline:hover { background-color: var(--ink); color: var(--white); }
+
+    .btn-outline-white { background-color: transparent; color: var(--white); border: 2px solid var(--white); }
+    .btn-outline-white:hover { background-color: var(--white); color: var(--ink); transform: translateY(-2px); }
+
+    .btn-primary {
+      background-color: var(--ink);
+      color: var(--white);
+      width: 100%;
+      padding: 16px 28px;
+      border: 1px solid var(--ink);
+    }
+    .btn-primary:hover { background-color: var(--accent); color: var(--ink); border-color: var(--accent); transform: translateY(-2px); }
+
+    /* ── HEADER / NAVIGATION ── */
+    .header-nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--line);
+      height: 72px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+
+    .logo-container { display: flex; align-items: center; gap: 12px; }
+
+    .logo-square { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-square.theme-light { background: var(--ink); }
+    .logo-square.theme-dark { background: var(--accent); }
+    .logo-square svg { width: 22px; height: 22px; }
+
+    .logo-text { font-family: var(--display); font-size: 18px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1; display: flex; flex-direction: column; }
+    .logo-text.theme-light { color: var(--ink); }
+    .logo-text.theme-dark { color: var(--white); }
+    .logo-text small { display: block; font-family: var(--sans); font-size: 9px; letter-spacing: 0.18em; font-weight: 700; margin-top: 3px; }
+    .logo-text.theme-light small { opacity: 0.65; }
+    .logo-text.theme-dark small { opacity: 0.55; }
+
+    .btn-nav-compact { padding: 10px 20px; font-size: 11px; }
+
+    /* ── LANG SWITCHER ── */
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+
+    .lang-switcher { display: flex; align-items: center; gap: 4px; }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(13, 15, 20, 0.4);
+      padding: 4px 6px;
+      transition: var(--transition-smooth);
+      line-height: 1;
+    }
+    .lang-btn:hover { color: var(--ink); }
+    .lang-btn.active { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+    .lang-sep { color: var(--line); font-family: var(--mono); font-size: 11px; user-select: none; }
+
+    /* ── SECTION 1: HERO ── */
+    .hero-section {
+      background-color: var(--ink);
+      color: var(--white);
+      padding: 140px 0 100px 0;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--ink-soft);
+    }
+
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; gap: 60px; }
+    .hero-content { display: flex; flex-direction: column; align-items: flex-start; }
+    .hero-content .section-label { color: var(--accent); }
+
+    .hero-title { font-size: 64px; line-height: 0.95; margin-bottom: 24px; letter-spacing: -0.03em; }
+    .hero-title span { color: var(--accent); }
+
+    .hero-subtitle { font-size: 18px; line-height: 1.6; color: rgba(255, 255, 255, 0.75); max-width: 600px; margin-bottom: 40px; }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .hero-visual {
+      position: relative;
+      border: 1px solid var(--ink-soft);
+      background: rgba(28, 32, 48, 0.3);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      width: 100%; height: 100%;
+      background-image: radial-gradient(var(--ink-soft) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.5;
+    }
+
+    .schematic-circle { position: absolute; border: 1px dashed rgba(0, 214, 161, 0.3); border-radius: 50%; animation: rotateSchematic 30s linear infinite; }
+    .schematic-circle-1 { width: 280px; height: 280px; }
+    .schematic-circle-2 { width: 180px; height: 180px; animation-direction: reverse; animation-duration: 20s; }
+
+    .schematic-core {
+      position: relative;
+      width: 80px; height: 80px;
+      background: var(--ink);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px rgba(0, 214, 161, 0.15);
+      animation: pulseCore 4s ease-in-out infinite;
+    }
+    .schematic-core svg { width: 40px; height: 40px; }
+
+    .schematic-node { position: absolute; width: 12px; height: 12px; background: var(--accent); border: 2px solid var(--ink); border-radius: 50%; }
+    .node-1 { top: -6px; left: calc(50% - 6px); }
+    .node-2 { bottom: -6px; left: calc(50% - 6px); }
+    .node-3 { left: -6px; top: calc(50% - 6px); }
+    .node-4 { right: -6px; top: calc(50% - 6px); }
+
+    .schematic-flow-line { position: absolute; background: linear-gradient(90deg, transparent, var(--accent), transparent); height: 1px; width: 100%; animation: flowX 3s linear infinite; }
+
+    @keyframes rotateSchematic { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes pulseCore { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(0, 214, 161, 0.15); } 50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(0, 214, 161, 0.35); } }
+    @keyframes flowX { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+    /* ── SECTION 2: LA MAGIA EN VIVO ── */
+    .magia-section { background-color: var(--surface); padding: 100px 0; border-bottom: 1px solid var(--line); }
+    .magia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 40px; }
+
+    .steps-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .step-card {
+      background: transparent;
+      border: 1px solid var(--line);
+      padding: 24px;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      align-items: flex-start;
+      gap: 16px;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+    .step-card:hover { background: var(--surface-2); border-color: var(--ink); }
+    .step-card.active { background: var(--white); border-color: var(--ink); border-left: 4px solid var(--accent); box-shadow: 0 4px 20px rgba(13, 15, 20, 0.04); }
+
+    .step-num { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--accent-2); opacity: 0.8; line-height: 1.2; }
+    .step-card.active .step-num { color: var(--accent); }
+    .step-title { font-family: var(--display); font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--ink); }
+    .step-desc { font-size: 14px; color: rgba(13, 15, 20, 0.7); line-height: 1.5; }
+
+    .visual-screen-container { display: flex; flex-direction: column; position: sticky; top: 100px; height: 480px; }
+
+    .screen-header-bar {
+      background: var(--ink);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--ink-soft);
+    }
+
+    .window-title { font-family: var(--mono); font-size: 10px; color: rgba(255, 255, 255, 0.6); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    .live-status { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; color: var(--accent); }
+    .status-pulse { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blinkStatus 1.5s infinite; }
+    @keyframes blinkStatus { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+    .screen-body {
+      background: var(--ink-soft);
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      flex-grow: 1;
+      padding: 24px;
+      color: var(--white);
+      font-family: var(--sans);
+      display: grid;
+      grid-template-rows: 1fr;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      position: relative;
+    }
+
+    .screen-control-btn {
+      position: absolute;
+      bottom: 12px; right: 12px;
+      background: rgba(13, 15, 20, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      padding: 6px 12px;
+      font-family: var(--mono);
+      font-size: 10px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+      transition: var(--transition-smooth);
+      z-index: 10;
+    }
+    .screen-control-btn:hover { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+
+    .simulator-split { display: grid; grid-template-columns: 1fr 1.1fr; gap: 16px; height: 100%; }
+
+    .telegram-mock {
+      background: #0e1621;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 0;
+      display: flex; flex-direction: column; justify-content: space-between;
+      overflow: hidden; position: relative;
+    }
+
+    .tg-header { background: #17212b; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.15); color: var(--white); }
+    .tg-header-left { display: flex; align-items: center; gap: 12px; }
+    .tg-back-arrow { font-size: 18px; color: #fff; cursor: pointer; font-weight: 300; }
+    .tg-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 14px; color: var(--ink); font-weight: bold; }
+    .tg-user-info { display: flex; flex-direction: column; line-height: 1.2; }
+    .tg-name { font-family: var(--sans); font-weight: 500; font-size: 13px; color: #fff; }
+    .tg-status { font-family: var(--sans); font-size: 10px; color: var(--accent); }
+    .tg-header-icons { display: flex; gap: 16px; color: #b1c3d4; font-size: 16px; align-items: center; }
+
+    .tg-chat-flow {
+      padding: 16px;
+      display: flex; flex-direction: column; gap: 12px;
+      flex-grow: 1; overflow-y: auto;
+      background-image: radial-gradient(rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 12px 12px;
+    }
+
+    .tg-bubble { padding: 8px 12px; border-radius: 12px; font-size: 11.5px; line-height: 1.4; max-width: 85%; position: relative; word-break: break-word; animation: bubbleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .tg-bubble-user { background: #2b5278; color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
+    .tg-bubble-agent { background: #182533; color: #fff; align-self: flex-start; border-bottom-left-radius: 2px; }
+
+    .tg-input-area { background: #17212b; padding: 8px 10px; display: flex; align-items: center; gap: 8px; border-top: 1px solid rgba(0,0,0,0.15); }
+    .tg-input-pill { flex-grow: 1; background: #24303f; border-radius: 20px; padding: 6px 14px; font-size: 11px; color: #7f91a4; display: flex; justify-content: space-between; align-items: center; }
+    .tg-send-circle { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; flex-shrink: 0; }
+
+    .erp-mock { background: #090B0F; border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 16px; font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.85); display: flex; flex-direction: column; overflow: hidden; }
+    .erp-header { color: rgba(255,255,255,0.4); font-size: 10px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; display: flex; justify-content: space-between; }
+    .erp-log { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; line-height: 1.4; }
+
+    .log-line { opacity: 0; animation: logIn 0.3s ease-out forwards; }
+    .log-line.cmd { color: var(--accent); }
+    .log-line.success { color: #00D4A1; }
+    .log-line.info { color: var(--accent-3); }
+    .log-line.alert { color: var(--accent-2); }
+
+    @keyframes bubbleIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes logIn { from { opacity: 0; transform: translateX(-5px); } to { opacity: 0.85; transform: translateX(0); } }
+
+    /* ── SECTION 3: SOLUCIONES ── */
+    .soluciones-section { background-color: var(--surface); padding: 100px 0; border-bottom: 1px solid var(--line); }
+    .soluciones-title-block { margin-bottom: 60px; }
+    .soluciones-title-block h2 { font-size: 40px; max-width: 600px; color: var(--ink); }
+
+    .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+
+    .bento-card { background-color: var(--white); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 36px 32px; display: flex; flex-direction: column; justify-content: space-between; min-height: 380px; transition: var(--transition-smooth); }
+    .bento-card:hover { background-color: var(--surface-2); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(13, 15, 20, 0.05); }
+    .bento-card-top { display: flex; flex-direction: column; }
+
+    .bento-icon { width: 48px; height: 48px; background: var(--surface); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; margin-bottom: 32px; color: var(--ink); font-family: var(--mono); font-weight: bold; font-size: 14px; transition: var(--transition-smooth); }
+    .bento-card:hover .bento-icon { background-color: var(--ink); color: var(--accent); border-color: var(--ink); }
+
+    .bento-title { font-family: var(--display); font-size: 20px; font-weight: 800; margin-bottom: 16px; color: var(--ink); line-height: 1.2; }
+    .bento-subtitle { font-family: var(--mono); font-size: 11px; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .bento-desc { font-size: 14px; color: rgba(13, 15, 20, 0.75); line-height: 1.6; }
+
+    .bento-features { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .bento-features li { font-size: 13px; color: var(--ink); display: flex; align-items: flex-start; gap: 8px; font-weight: 500; }
+    .bento-features li::before { content: '✓'; color: var(--accent); font-weight: bold; font-size: 12px; }
+
+    /* ── SECTION 4: RESPALDO ── */
+    .respaldo-section { background-color: var(--ink); color: var(--white); padding: 120px 0; border-bottom: 1px solid var(--ink-soft); position: relative; }
+    .respaldo-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: center; }
+    .respaldo-left h2 { font-size: 44px; line-height: 1.05; color: var(--white); margin-top: 12px; }
+    .respaldo-right { position: relative; border-left: 2px solid var(--accent); padding-left: 40px; }
+    .respaldo-text { font-size: 17px; line-height: 1.7; color: rgba(255, 255, 255, 0.85); font-weight: 400; }
+
+    .respaldo-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .metric-item { display: flex; flex-direction: column; }
+    .metric-value { font-family: var(--display); font-size: 40px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+    .metric-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); }
+
+    /* ── SECTION 5: FORMULARIO ── */
+    .contacto-section { background-color: var(--surface); padding: 100px 0; border-bottom: 1px solid var(--line); }
+    .contacto-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; }
+    .contacto-info { display: flex; flex-direction: column; justify-content: space-between; }
+    .contacto-info h2 { font-size: 44px; color: var(--ink); margin-top: 12px; margin-bottom: 24px; }
+    .contacto-desc { font-size: 16px; color: rgba(13, 15, 20, 0.8); line-height: 1.6; max-width: 480px; margin-bottom: 40px; }
+
+    .trust-badge-card { background-color: var(--surface-2); border: 1px solid var(--line); padding: 32px; display: flex; align-items: center; gap: 24px; }
+    .trust-badge-icon { width: 40px; height: 40px; border-radius: 50%; background-color: var(--accent); color: var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .trust-badge-icon svg { width: 18px; height: 18px; }
+    .trust-badge-content { display: flex; flex-direction: column; }
+    .trust-badge-label { font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-3); margin-bottom: 6px; }
+    .trust-badge-body { font-family: var(--sans); font-size: 16px; font-weight: 400; color: var(--ink); line-height: 1.5; max-width: 600px; }
+
+    .form-card { background: var(--white); border: 1px solid var(--line); padding: 48px; box-shadow: 0 4px 30px rgba(13, 15, 20, 0.02); }
+    .form-group { margin-bottom: 24px; position: relative; }
+    .form-label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(13, 15, 20, 0.5); margin-bottom: 8px; }
+    .form-input { width: 100%; font-family: var(--sans); font-size: 15px; padding: 14px 16px; border: 1px solid var(--line); background-color: var(--surface); color: var(--ink); outline: none; transition: var(--transition-smooth); }
+    textarea.form-input { resize: vertical; min-height: 120px; }
+    .form-input::placeholder { color: rgba(13, 15, 20, 0.35); }
+    .form-input:focus { background-color: var(--white); border-color: var(--ink); box-shadow: 0 0 0 3px rgba(13, 15, 20, 0.05); }
+
+    .form-success-message { display: none; background: #F0FDF9; border: 1px solid var(--accent); color: var(--ink); padding: 24px; font-family: var(--sans); text-align: center; animation: fadeIn 0.4s ease-out forwards; }
+    .success-icon { font-size: 24px; color: var(--accent); margin-bottom: 12px; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── FOOTER ── */
+    .footer-section { background-color: var(--ink); color: var(--white); padding: 60px 0; border-top: 1px solid var(--ink-soft); }
+    .footer-grid { display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center; }
+    .footer-promise { font-family: var(--display); font-size: 20px; color: var(--white); letter-spacing: -0.01em; max-width: 500px; font-weight: 800; }
+    .footer-promise span { color: var(--accent); }
+    .footer-divider { width: 60px; height: 1px; background-color: var(--ink-soft); }
+    .footer-copyright { font-family: var(--mono); font-size: 11px; color: rgba(255, 255, 255, 0.45); letter-spacing: 0.05em; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+      .hero-content { align-items: center; }
+      .hero-title { font-size: 52px; }
+      .hero-subtitle { margin-left: auto; margin-right: auto; }
+      .hero-buttons { justify-content: center; }
+      .hero-visual { max-width: 320px; margin: 0 auto; width: 100%; }
+      .soluciones-title-block { text-align: center; }
+      .soluciones-title-block h2 { margin: 0 auto; }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .respaldo-grid { grid-template-columns: 1fr; gap: 48px; }
+      .respaldo-right { border-left: none; border-top: 2px solid var(--accent); padding-left: 0; padding-top: 32px; }
+      .contacto-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contacto-desc { max-width: 100%; }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .steps-list { flex-direction: row; overflow-x: auto; padding: 4px 4px 16px 4px; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 12px; }
+      .steps-list::-webkit-scrollbar { display: none; }
+      .step-card { min-width: 260px; scroll-snap-align: start; grid-template-columns: 35px 1fr; padding: 16px; }
+      .step-num { font-size: 15px; }
+      .step-title { font-size: 16px; margin-bottom: 4px; }
+      .step-desc { font-size: 13px; }
+      .magia-grid { grid-template-columns: 1fr; gap: 24px; }
+      .visual-screen-container { position: static; height: auto; }
+      .screen-body { padding: 16px; height: auto; }
+      .simulator-split { grid-template-columns: 1fr; gap: 20px; height: auto; }
+      .telegram-mock { height: 380px; }
+      .erp-mock { height: 260px; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card { min-height: auto; padding: 28px 24px; }
+      .hero-title { font-size: 40px; }
+      .respaldo-metrics { grid-template-columns: 1fr; gap: 24px; }
+      .form-card { padding: 32px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .logo-text { font-size: 15px; }
+      .logo-text small { display: none; }
+      .btn-nav-compact { padding: 8px 14px; font-size: 10px; }
+      .lang-btn { padding: 4px 4px; font-size: 12px; }
+      .hero-title { font-size: 32px; }
+      .hero-subtitle { font-size: 15px; margin-bottom: 32px; }
+      .hero-section { padding: 110px 0 60px 0; }
+      .hero-visual { max-width: 260px; }
+      .form-card { padding: 24px 16px; }
+      .respaldo-right { padding-top: 24px; }
+      .respaldo-text { font-size: 15px; }
+      .trust-badge-card { padding: 20px 16px; gap: 16px; }
+      .trust-badge-body { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="#" class="logo-container" aria-label="Syncro Ops Home">
+        <div class="logo-square theme-light">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="9" height="9" fill="#00D4A1"/>
+            <rect x="14" y="1" width="9" height="9" fill="#00D4A1"/>
+            <rect x="1" y="14" width="9" height="9" fill="#00D4A1"/>
+            <rect x="14" y="14" width="5" height="5" fill="#00D4A1"/>
+          </svg>
+        </div>
+        <div class="logo-text theme-light">
+          Syncro Ops
+          <small data-i18n="logo-small">Automatización · IA</small>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <div class="lang-switcher" id="lang-switcher" role="group" aria-label="Language selector">
+          <button class="lang-btn active" data-lang="es" aria-pressed="true">ES</button>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a href="#contacto" class="btn btn-outline btn-nav-compact" id="nav-cta" data-i18n="nav-cta">
+          Solicitar Relevamiento
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECCIÓN 1: HERO -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="section-label" data-i18n="hero-label">
+            // INFRAESTRUCTURA DE PROCESOS AUTÓNOMOS
+          </div>
+          <h1 class="hero-title" data-i18n-html="hero-title">
+            Sincronizamos la <span class="text-accent">IA</span> con su <span class="text-accent">estrategia operativa</span>.
+          </h1>
+          <p class="hero-subtitle" data-i18n="hero-subtitle">
+            Diseñamos e implementamos operaciones autónomas para su empresa. Relevamos su administración, eliminamos la carga manual de datos e interconectamos sus sistemas actuales sin que tenga que cambiar sus softwares.
+          </p>
+          <div class="hero-buttons">
+            <a href="#magia" class="btn btn-accent" data-i18n="hero-btn-demo">Ver Demo en Acción</a>
+            <a href="#contacto" class="btn btn-outline-white" data-i18n="hero-btn-contact">Solicitar Relevamiento</a>
+          </div>
+        </div>
+        <div class="hero-visual swiss-border">
+          <div class="schematic-circle schematic-circle-1"></div>
+          <div class="schematic-circle schematic-circle-2"></div>
+          <div class="schematic-core">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="8" height="8" fill="#00D4A1"/>
+              <rect x="14" y="2" width="8" height="8" fill="#00D4A1"/>
+              <rect x="2" y="14" width="8" height="8" fill="#00D4A1"/>
+              <rect x="14" y="14" width="4" height="4" fill="#00D4A1"/>
+            </svg>
+            <div class="schematic-node node-1"></div>
+            <div class="schematic-node node-2"></div>
+            <div class="schematic-node node-3"></div>
+            <div class="schematic-node node-4"></div>
+          </div>
+          <div class="schematic-flow-line" style="top: 25%;"></div>
+          <div class="schematic-flow-line" style="top: 75%; animation-delay: 1.5s;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: LA MAGIA EN VIVO -->
+    <section class="magia-section" id="magia">
+      <div class="container">
+        <div class="section-label" data-i18n="magia-label">// 01 — CASO DE ESTUDIO: AGENTE COLIN</div>
+        <h2 data-i18n="magia-h2">De un mensaje de Telegram a una Orden de Compra sin errores</h2>
+
+        <div class="magia-grid">
+          <!-- Left steps list -->
+          <div class="steps-list" role="tablist" aria-label="Pasos de ejecución del Agente Colin">
+            <div class="step-card active" data-step="1" role="tab" aria-selected="true" tabindex="0">
+              <div class="step-num">01.</div>
+              <div>
+                <h3 class="step-title" data-i18n="step1-title">Recepción</h3>
+                <p class="step-desc" data-i18n="step1-desc">El usuario envía un texto o audio por Telegram solicitando un material.</p>
+              </div>
+            </div>
+
+            <div class="step-card" data-step="2" role="tab" aria-selected="false" tabindex="-1">
+              <div class="step-num">02.</div>
+              <div>
+                <h3 class="step-title" data-i18n="step2-title">Validación</h3>
+                <p class="step-desc" data-i18n="step2-desc">Colin interpreta el mensaje, revisa la Master Data y entiende el pedido.</p>
+              </div>
+            </div>
+
+            <div class="step-card" data-step="3" role="tab" aria-selected="false" tabindex="-1">
+              <div class="step-num">03.</div>
+              <div>
+                <h3 class="step-title" data-i18n="step3-title">Confirmación</h3>
+                <p class="step-desc" data-i18n="step3-desc">Registra la Solicitud de Pedido (PR) y le confirma el registro por chat.</p>
+              </div>
+            </div>
+
+            <div class="step-card" data-step="4" role="tab" aria-selected="false" tabindex="-1">
+              <div class="step-num">04.</div>
+              <div>
+                <h3 class="step-title" data-i18n="step4-title">Cotización</h3>
+                <p class="step-desc" data-i18n="step4-desc">Envía automáticamente las solicitudes de presupuesto a los proveedores.</p>
+              </div>
+            </div>
+
+            <div class="step-card" data-step="5" role="tab" aria-selected="false" tabindex="-1">
+              <div class="step-num">05.</div>
+              <div>
+                <h3 class="step-title" data-i18n="step5-title">Análisis</h3>
+                <p class="step-desc" data-i18n="step5-desc">Recibe las respuestas, analiza precios, plazos y arma el cuadro comparativo.</p>
+              </div>
+            </div>
+
+            <div class="step-card" data-step="6" role="tab" aria-selected="false" tabindex="-1">
+              <div class="step-num">06.</div>
+              <div>
+                <h3 class="step-title" data-i18n="step6-title">Cierre</h3>
+                <p class="step-desc" data-i18n="step6-desc">Envía opciones óptimas al usuario y, tras la aprobación, despacha la Orden de Compra (PO) final.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Interactive Display Panel -->
+          <div class="visual-screen-container">
+            <div class="screen-header-bar">
+              <div class="window-title" id="screen-title-step">Paso 01: Recepción</div>
+              <div class="live-status">
+                <span class="status-pulse"></span>
+                <span>COLIN SYSTEM LIVE</span>
+              </div>
+            </div>
+            <div class="screen-body">
+              <button class="screen-control-btn" id="autoplay-btn" aria-label="Pausar Demo Autoejecutable">
+                <span id="control-icon">⏸</span> <span id="control-text">PAUSA</span>
+              </button>
+
+              <div class="simulator-split">
+                <div class="telegram-mock">
+                  <div class="tg-header">
+                    <div class="tg-header-left">
+                      <span class="tg-back-arrow">←</span>
+                      <div class="tg-avatar">C</div>
+                      <div class="tg-user-info">
+                        <span class="tg-name">Agente Colin</span>
+                        <span class="tg-status" data-i18n="tg-status">en línea</span>
+                      </div>
+                    </div>
+                    <div class="tg-header-icons">
+                      <span>🔍</span>
+                      <span>⋮</span>
+                    </div>
+                  </div>
+                  <div class="tg-chat-flow" id="tg-flow"></div>
+                  <div class="tg-input-area">
+                    <div class="tg-input-pill">
+                      <span data-i18n="tg-placeholder">📎 Escribe un mensaje...</span>
+                      <span>😊</span>
+                    </div>
+                    <div class="tg-send-circle"><span>🎤</span></div>
+                  </div>
+                </div>
+
+                <div class="erp-mock">
+                  <div class="erp-header">
+                    <span>ERP CENTRAL TERMINAL</span>
+                    <span>v2.6</span>
+                  </div>
+                  <div class="erp-log" id="erp-log-flow"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: SOLUCIONES -->
+    <section class="soluciones-section">
+      <div class="container">
+        <div class="soluciones-title-block">
+          <div class="section-label" data-i18n="soluciones-label">// 02 — PROCESOS OPERATIVOS CUBIERTOS</div>
+          <h2 data-i18n="soluciones-h2">Reemplazamos la carga administrativa por flujos autónomos</h2>
+        </div>
+
+        <div class="bento-grid">
+          <div class="bento-card">
+            <div class="bento-card-top">
+              <div class="bento-icon">P2P</div>
+              <div class="bento-subtitle" data-i18n="p2p-subtitle">Compras y Pagos</div>
+              <h3 class="bento-title" data-i18n="p2p-title">Comprador Automático</h3>
+              <p class="bento-desc" data-i18n="p2p-desc">Eliminamos las demoras de abastecimiento interconectando el chat operativo con el sistema ERP.</p>
+              <ul class="bento-features">
+                <li data-i18n="p2p-f1">Pedidos de materiales por chat</li>
+                <li data-i18n="p2p-f2">Seguimiento automático de órdenes</li>
+                <li data-i18n="p2p-f3">Conciliación de facturas vs remitos</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-card-top">
+              <div class="bento-icon">OTC</div>
+              <div class="bento-subtitle" data-i18n="otc-subtitle">Ventas y Cobros</div>
+              <h3 class="bento-title" data-i18n="otc-title">Ventas y Cobros Autónomos</h3>
+              <p class="bento-desc" data-i18n="otc-desc">Automatizamos desde la recepción de la demanda hasta el ingreso real de fondos en su cuenta.</p>
+              <ul class="bento-features">
+                <li data-i18n="otc-f1">Toma de pedidos omnicanal (WhatsApp/mails)</li>
+                <li data-i18n="otc-f2">Validación de stock en tiempo real</li>
+                <li data-i18n="otc-f3">Conciliación de transferencias y recordatorios</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-card-top">
+              <div class="bento-icon">HR</div>
+              <div class="bento-subtitle" data-i18n="hr-subtitle">Gestión de Personal</div>
+              <h3 class="bento-title" data-i18n="hr-title">Soporte de Recursos Humanos</h3>
+              <p class="bento-desc" data-i18n="hr-desc">Reducimos los cuellos de botella en la administración de contratos y novedades de su personal.</p>
+              <ul class="bento-features">
+                <li data-i18n="hr-f1">Onboarding autónomo y firmas de contratos</li>
+                <li data-i18n="hr-f2">Gestión de novedades (vacaciones, licencias)</li>
+                <li data-i18n="hr-f3">Sincronización directa a planillas</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-card-top">
+              <div class="bento-icon">IT</div>
+              <div class="bento-subtitle" data-i18n="it-subtitle">Soporte y Accesos</div>
+              <h3 class="bento-title" data-i18n="it-title">IT Help Desk Automatizado</h3>
+              <p class="bento-desc" data-i18n="it-desc">Facilitamos la resolución inmediata de incidentes tecnológicos internos para que su equipo no se detenga.</p>
+              <ul class="bento-features">
+                <li data-i18n="it-f1">Mesa de ayuda integrada en chats internos</li>
+                <li data-i18n="it-f2">Configuración rápida de accesos y VPNs</li>
+                <li data-i18n="it-f3">Desbloqueo de usuarios automático</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: RESPALDO Y SENIORITY -->
+    <section class="respaldo-section">
+      <div class="container respaldo-grid">
+        <div class="respaldo-left">
+          <div class="section-label" data-i18n="respaldo-label">// 03 — RESPALDO METODOLÓGICO</div>
+          <h2 data-i18n="respaldo-h2">Metodología Corporativa aplicada a la realidad de la PyME</h2>
+        </div>
+        <div class="respaldo-right">
+          <p class="respaldo-text" data-i18n="respaldo-text">
+            Detrás de Syncro Ops hay más de 20 años de experiencia real liderando operaciones en plantas, empresas medianas, multinacionales y Centros de Servicios Compartidos (GBS) globales. No implementamos tecnología por moda o improvisación. Traemos las mejores prácticas del mercado corporativo internacional y las ejecutamos bajo estructuras ágiles, adaptadas al presupuesto y a la velocidad que su empresa necesita para escalar sin fricción.
+          </p>
+          <div class="respaldo-metrics">
+            <div class="metric-item">
+              <div class="metric-value">20+</div>
+              <div class="metric-label" data-i18n="metric1-label">Años de Exp. Operativa</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" data-i18n="metric2-value">4 sem</div>
+              <div class="metric-label" data-i18n="metric2-label">Implementación (MVP)</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">24/7</div>
+              <div class="metric-label" data-i18n="metric3-label">Procesamiento Autónomo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: CAPTACIÓN / FORMULARIO -->
+    <section class="contacto-section" id="contacto">
+      <div class="container contacto-grid">
+        <div class="contacto-info">
+          <div>
+            <div class="section-label" data-i18n="contacto-label">// 04 — CONTACTO</div>
+            <h2 data-i18n="contacto-h2">Iniciá la optimización de tu estructura operativa</h2>
+            <p class="contacto-desc" data-i18n="contacto-desc">
+              Coordiná un relevamiento técnico inicial de 15 minutos. Evaluamos el flujo de tus procesos actuales y te proponemos una estrategia de agentes a medida.
+            </p>
+          </div>
+
+          <div class="trust-badge-card">
+            <div class="trust-badge-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="trust-badge-content">
+              <div class="trust-badge-label" data-i18n="trust-label">Garantía Operativa</div>
+              <p class="trust-badge-body" data-i18n="trust-body">
+                No interrumpimos su sistema actual. Operamos sobre su software existente.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <form id="lead-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <input type="hidden" name="access_key" value="a30e1a5d-3236-4895-bd4d-677fe5412463">
+            <input type="hidden" name="subject" value="Nuevo Lead - Sesión Estratégica Syncro Ops">
+            <input type="hidden" name="from_name" value="Web Syncro Ops">
+            <input type="checkbox" name="botcheck" style="display: none;">
+
+            <div class="form-group">
+              <label for="full-name" class="form-label" data-i18n="form-name-label">Nombre del contacto *</label>
+              <input type="text" id="full-name" name="nombre" class="form-input"
+                placeholder="Tu nombre y apellido"
+                data-i18n-placeholder="form-name-placeholder" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="form-label" data-i18n="form-phone-label">Teléfono / WhatsApp</label>
+              <input type="tel" id="phone" name="whatsapp" class="form-input"
+                placeholder="WhatsApp (con código de área)"
+                data-i18n-placeholder="form-phone-placeholder">
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label" data-i18n="form-email-label">Email *</label>
+              <input type="email" id="email" name="email" class="form-input"
+                placeholder="Tu email"
+                data-i18n-placeholder="form-email-placeholder" required>
+            </div>
+
+            <div class="form-group">
+              <label for="mensaje" class="form-label" data-i18n="form-msg-label">Mensaje / Dolor</label>
+              <textarea id="mensaje" name="mensaje" class="form-input"
+                placeholder="¿Qué proceso manual o administrativo te saca más tiempo hoy?"
+                data-i18n-placeholder="form-msg-placeholder"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" data-i18n="form-submit">
+              Solicitar Relevamiento Operativo →
+            </button>
+          </form>
+
+          <div class="form-success-message" id="form-success">
+            <div class="success-icon">✓</div>
+            <h3 style="font-family: var(--display); font-size: 20px; margin-bottom: 8px;" data-i18n="success-title">Requerimiento Enviado</h3>
+            <p style="font-size: 14px; color: rgba(13, 15, 20, 0.75);" data-i18n="success-body">Tommy Campbell o un técnico especialista se contactará por WhatsApp o email dentro de las próximas 2 horas hábiles.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer-section">
+    <div class="container footer-grid">
+      <div class="logo-container">
+        <div class="logo-square theme-dark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="9" height="9" fill="#0D0F14"/>
+            <rect x="14" y="1" width="9" height="9" fill="#0D0F14"/>
+            <rect x="1" y="14" width="9" height="9" fill="#0D0F14"/>
+            <rect x="14" y="14" width="5" height="5" fill="#0D0F14"/>
+          </svg>
+        </div>
+        <div class="logo-text theme-dark">
+          Syncro Ops
+          <small data-i18n="logo-small">Automatización · IA</small>
+        </div>
+      </div>
+
+      <p class="footer-promise" data-i18n-html="footer-promise">
+        Sincronizamos la <span>Inteligencia Artificial</span> con su estrategia operativa.
+      </p>
+
+      <div class="footer-divider"></div>
+
+      <p class="footer-copyright" data-i18n="footer-copyright">
+        Copyright © 2026 Syncro Ops. Todos los derechos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // ── TRANSLATIONS ──
+    const translations = {
+      es: {
+        'page-title': 'Syncro Ops — Automatización e IA para PyMEs',
+        'page-desc': 'Diseñamos e implementamos operaciones autónomas para su empresa. Relevamos su administración, eliminamos la carga manual de datos e interconectamos sus sistemas actuales.',
+        'logo-small': 'Automatización · IA',
+        'nav-cta': 'Solicitar Relevamiento',
+        'hero-label': '// INFRAESTRUCTURA DE PROCESOS AUTÓNOMOS',
+        'hero-title': 'Sincronizamos la <span class="text-accent">IA</span> con su <span class="text-accent">estrategia operativa</span>.',
+        'hero-subtitle': 'Diseñamos e implementamos operaciones autónomas para su empresa. Relevamos su administración, eliminamos la carga manual de datos e interconectamos sus sistemas actuales sin que tenga que cambiar sus softwares.',
+        'hero-btn-demo': 'Ver Demo en Acción',
+        'hero-btn-contact': 'Solicitar Relevamiento',
+        'magia-label': '// 01 — CASO DE ESTUDIO: AGENTE COLIN',
+        'magia-h2': 'De un mensaje de Telegram a una Orden de Compra sin errores',
+        'steps-aria': 'Pasos de ejecución del Agente Colin',
+        'step1-title': 'Recepción',
+        'step1-desc': 'El usuario envía un texto o audio por Telegram solicitando un material.',
+        'step2-title': 'Validación',
+        'step2-desc': 'Colin interpreta el mensaje, revisa la Master Data y entiende el pedido.',
+        'step3-title': 'Confirmación',
+        'step3-desc': 'Registra la Solicitud de Pedido (PR) y le confirma el registro por chat.',
+        'step4-title': 'Cotización',
+        'step4-desc': 'Envía automáticamente las solicitudes de presupuesto a los proveedores.',
+        'step5-title': 'Análisis',
+        'step5-desc': 'Recibe las respuestas, analiza precios, plazos y arma el cuadro comparativo.',
+        'step6-title': 'Cierre',
+        'step6-desc': 'Envía opciones óptimas al usuario y, tras la aprobación, despacha la Orden de Compra (PO) final.',
+        'tg-status': 'en línea',
+        'tg-placeholder': '📎 Escribe un mensaje...',
+        'ctrl-pause': 'PAUSA',
+        'ctrl-play': 'REPRODUCIR',
+        'soluciones-label': '// 02 — PROCESOS OPERATIVOS CUBIERTOS',
+        'soluciones-h2': 'Reemplazamos la carga administrativa por flujos autónomos',
+        'p2p-subtitle': 'Compras y Pagos',
+        'p2p-title': 'Comprador Automático',
+        'p2p-desc': 'Eliminamos las demoras de abastecimiento interconectando el chat operativo con el sistema ERP.',
+        'p2p-f1': 'Pedidos de materiales por chat',
+        'p2p-f2': 'Seguimiento automático de órdenes',
+        'p2p-f3': 'Conciliación de facturas vs remitos',
+        'otc-subtitle': 'Ventas y Cobros',
+        'otc-title': 'Ventas y Cobros Autónomos',
+        'otc-desc': 'Automatizamos desde la recepción de la demanda hasta el ingreso real de fondos en su cuenta.',
+        'otc-f1': 'Toma de pedidos omnicanal (WhatsApp/mails)',
+        'otc-f2': 'Validación de stock en tiempo real',
+        'otc-f3': 'Conciliación de transferencias y recordatorios',
+        'hr-subtitle': 'Gestión de Personal',
+        'hr-title': 'Soporte de Recursos Humanos',
+        'hr-desc': 'Reducimos los cuellos de botella en la administración de contratos y novedades de su personal.',
+        'hr-f1': 'Onboarding autónomo y firmas de contratos',
+        'hr-f2': 'Gestión de novedades (vacaciones, licencias)',
+        'hr-f3': 'Sincronización directa a planillas',
+        'it-subtitle': 'Soporte y Accesos',
+        'it-title': 'IT Help Desk Automatizado',
+        'it-desc': 'Facilitamos la resolución inmediata de incidentes tecnológicos internos para que su equipo no se detenga.',
+        'it-f1': 'Mesa de ayuda integrada en chats internos',
+        'it-f2': 'Configuración rápida de accesos y VPNs',
+        'it-f3': 'Desbloqueo de usuarios automático',
+        'respaldo-label': '// 03 — RESPALDO METODOLÓGICO',
+        'respaldo-h2': 'Metodología Corporativa aplicada a la realidad de la PyME',
+        'respaldo-text': 'Detrás de Syncro Ops hay más de 20 años de experiencia real liderando operaciones en plantas, empresas medianas, multinacionales y Centros de Servicios Compartidos (GBS) globales. No implementamos tecnología por moda o improvisación. Traemos las mejores prácticas del mercado corporativo internacional y las ejecutamos bajo estructuras ágiles, adaptadas al presupuesto y a la velocidad que su empresa necesita para escalar sin fricción.',
+        'metric1-label': 'Años de Exp. Operativa',
+        'metric2-value': '4 sem',
+        'metric2-label': 'Implementación (MVP)',
+        'metric3-label': 'Procesamiento Autónomo',
+        'contacto-label': '// 04 — CONTACTO',
+        'contacto-h2': 'Iniciá la optimización de tu estructura operativa',
+        'contacto-desc': 'Coordiná un relevamiento técnico inicial de 15 minutos. Evaluamos el flujo de tus procesos actuales y te proponemos una estrategia de agentes a medida.',
+        'trust-label': 'Garantía Operativa',
+        'trust-body': 'No interrumpimos su sistema actual. Operamos sobre su software existente.',
+        'form-name-label': 'Nombre del contacto *',
+        'form-name-placeholder': 'Tu nombre y apellido',
+        'form-phone-label': 'Teléfono / WhatsApp',
+        'form-phone-placeholder': 'WhatsApp (con código de área)',
+        'form-email-label': 'Email *',
+        'form-email-placeholder': 'Tu email',
+        'form-msg-label': 'Mensaje / Dolor',
+        'form-msg-placeholder': '¿Qué proceso manual o administrativo te saca más tiempo hoy?',
+        'form-submit': 'Solicitar Relevamiento Operativo →',
+        'form-submitting': 'Enviando...',
+        'form-validation': 'Por favor completá tu nombre y email.',
+        'form-error': 'Algo salió mal. Por favor intente de nuevo.',
+        'success-title': 'Requerimiento Enviado',
+        'success-body': 'Tommy Campbell o un técnico especialista se contactará por WhatsApp o email dentro de las próximas 2 horas hábiles.',
+        'footer-promise': 'Sincronizamos la <span>Inteligencia Artificial</span> con su estrategia operativa.',
+        'footer-copyright': 'Copyright © 2026 Syncro Ops. Todos los derechos reservados.'
+      },
+      en: {
+        'page-title': 'Syncro Ops — Automation & AI for SMBs',
+        'page-desc': 'We design and implement autonomous operations for your company. We map your administration, eliminate manual data entry, and interconnect your existing systems.',
+        'logo-small': 'Automation · AI',
+        'nav-cta': 'Request Assessment',
+        'hero-label': '// AUTONOMOUS PROCESS INFRASTRUCTURE',
+        'hero-title': 'We sync <span class="text-accent">AI</span> with your <span class="text-accent">operational strategy</span>.',
+        'hero-subtitle': 'We design and implement autonomous operations for your company. We map your administration, eliminate manual data entry, and interconnect your existing systems without requiring you to change your software.',
+        'hero-btn-demo': 'See Demo in Action',
+        'hero-btn-contact': 'Request Assessment',
+        'magia-label': '// 01 — CASE STUDY: AGENT COLIN',
+        'magia-h2': 'From a Telegram message to a Purchase Order — error free',
+        'steps-aria': 'Agent Colin execution steps',
+        'step1-title': 'Reception',
+        'step1-desc': 'The user sends a text or audio via Telegram requesting a material.',
+        'step2-title': 'Validation',
+        'step2-desc': 'Colin interprets the message, checks the Master Data, and understands the order.',
+        'step3-title': 'Confirmation',
+        'step3-desc': 'It registers the Purchase Requisition (PR) and confirms the record via chat.',
+        'step4-title': 'Quotation',
+        'step4-desc': 'Automatically sends request-for-quote emails to authorized suppliers.',
+        'step5-title': 'Analysis',
+        'step5-desc': 'Receives responses, analyzes prices and lead times, and builds the comparison table.',
+        'step6-title': 'Closure',
+        'step6-desc': 'Sends optimal options to the user and, upon approval, dispatches the final Purchase Order (PO).',
+        'tg-status': 'online',
+        'tg-placeholder': '📎 Write a message...',
+        'ctrl-pause': 'PAUSE',
+        'ctrl-play': 'PLAY',
+        'soluciones-label': '// 02 — OPERATIONAL PROCESSES COVERED',
+        'soluciones-h2': 'We replace administrative burden with autonomous workflows',
+        'p2p-subtitle': 'Purchasing & Payments',
+        'p2p-title': 'Automated Buyer',
+        'p2p-desc': 'We eliminate supply delays by connecting your operational chat with the ERP system.',
+        'p2p-f1': 'Material orders via chat',
+        'p2p-f2': 'Automatic order tracking',
+        'p2p-f3': 'Invoice vs. delivery note reconciliation',
+        'otc-subtitle': 'Sales & Collections',
+        'otc-title': 'Autonomous Sales & Collections',
+        'otc-desc': 'We automate from demand reception to actual fund entry in your account.',
+        'otc-f1': 'Omnichannel order intake (WhatsApp/email)',
+        'otc-f2': 'Real-time stock validation',
+        'otc-f3': 'Transfer reconciliation and reminders',
+        'hr-subtitle': 'People Management',
+        'hr-title': 'HR Support Automation',
+        'hr-desc': 'We reduce bottlenecks in contract management and personnel updates.',
+        'hr-f1': 'Autonomous onboarding and contract signing',
+        'hr-f2': 'Leave management (vacations, sick days)',
+        'hr-f3': 'Direct sync to spreadsheets',
+        'it-subtitle': 'Support & Access',
+        'it-title': 'Automated IT Help Desk',
+        'it-desc': 'We enable immediate resolution of internal tech incidents so your team keeps moving.',
+        'it-f1': 'Help desk embedded in internal chats',
+        'it-f2': 'Fast access and VPN provisioning',
+        'it-f3': 'Automated user account unlocking',
+        'respaldo-label': '// 03 — METHODOLOGICAL BACKING',
+        'respaldo-h2': 'Corporate Methodology applied to the SMB reality',
+        'respaldo-text': "Behind Syncro Ops lies more than 20 years of real-world experience leading operations in plants, mid-sized companies, multinationals, and global Shared Services Centers (GBS). We don't implement technology on a whim. We bring the best practices from international corporate markets and execute them through agile structures, adapted to the budget and speed your company needs to scale without friction.",
+        'metric1-label': 'Years of Operational Exp.',
+        'metric2-value': '4 wks',
+        'metric2-label': 'Implementation (MVP)',
+        'metric3-label': 'Autonomous Processing',
+        'contacto-label': '// 04 — CONTACT',
+        'contacto-h2': 'Start optimizing your operational structure',
+        'contacto-desc': 'Schedule an initial 15-minute technical assessment. We evaluate your current process flow and propose a tailored agent strategy.',
+        'trust-label': 'Operational Guarantee',
+        'trust-body': "We don't interrupt your current system. We operate on top of your existing software.",
+        'form-name-label': 'Contact Name *',
+        'form-name-placeholder': 'Your full name',
+        'form-phone-label': 'Phone / WhatsApp',
+        'form-phone-placeholder': 'WhatsApp (with area code)',
+        'form-email-label': 'Email *',
+        'form-email-placeholder': 'Your email',
+        'form-msg-label': 'Message / Pain Point',
+        'form-msg-placeholder': 'What manual or administrative process takes up most of your time today?',
+        'form-submit': 'Request Operational Assessment →',
+        'form-submitting': 'Sending...',
+        'form-validation': 'Please fill in your name and email.',
+        'form-error': 'Something went wrong. Please try again.',
+        'success-title': 'Request Submitted',
+        'success-body': 'Tommy Campbell or a specialist will reach out via WhatsApp or email within the next 2 business hours.',
+        'footer-promise': 'We sync <span>Artificial Intelligence</span> with your operational strategy.',
+        'footer-copyright': 'Copyright © 2026 Syncro Ops. All rights reserved.'
+      }
+    };
+
+    // ── SIMULATOR DATA (Bilingual) ──
+    const stepData = {
+      es: {
+        1: {
+          title: 'Paso 01: Recepción',
+          chat: [
+            { sender: 'user', text: 'Hola Colin, necesitamos urgente 10 bolsas de lúpulo Cascade y 5 de levadura US-05 para la cocción de mañana. ¿Podés cotizar y pedir?' }
+          ],
+          logs: [
+            { type: 'info', text: 'System listening on Telegram webhook...' },
+            { type: 'cmd',  text: 'GET /webhook/telegram/updates' },
+            { type: 'info', text: 'Webhook triggered: Message from User #4812' }
+          ]
+        },
+        2: {
+          title: 'Paso 02: Validación',
+          chat: [
+            { sender: 'user',  text: 'Hola Colin, necesitamos urgente 10 bolsas de lúpulo Cascade y 5 de levadura US-05...' },
+            { sender: 'agent', text: '⏳ Entendido. Estoy procesando tu pedido e identificando los ítems en el inventario...' }
+          ],
+          logs: [
+            { type: 'info',    text: 'Parsing text input (NLP processing)...' },
+            { type: 'cmd',     text: 'SELECT * FROM master_data.items WHERE alias ILIKE ANY (array["%cascade%", "%us-05%"])' },
+            { type: 'success', text: 'MATCH FOUND: [ID 492] - Lúpulo Cascade (Bolsa 1kg)' },
+            { type: 'success', text: 'MATCH FOUND: [ID 892] - Levadura SafAle US-05 (Caja 500g)' },
+            { type: 'info',    text: 'Validating against Supplier List...' }
+          ]
+        },
+        3: {
+          title: 'Paso 03: Confirmación',
+          chat: [
+            { sender: 'user',  text: 'Hola Colin, necesitamos urgente 10 bolsas de lúpulo Cascade y 5 de levadura US-05...' },
+            { sender: 'agent', text: '✅ Pedido interpretado con éxito:\n• 10x Lúpulo Cascade (1kg)\n• 5x Levadura SafAle US-05\n\nRegistré la Solicitud de Pedido (PR-2026-992). Iniciando proceso de cotización...' }
+          ],
+          logs: [
+            { type: 'cmd',     text: 'POST /erp/api/purchase-requisition' },
+            { type: 'success', text: 'PR-2026-992 created successfully' },
+            { type: 'info',    text: 'Assigning category: BREWERY_RAW_MATERIALS' },
+            { type: 'info',    text: 'Triggering auto-quotation emails to authorized vendors...' }
+          ]
+        },
+        4: {
+          title: 'Paso 04: Cotización',
+          chat: [
+            { sender: 'agent', text: '✅ Pedido registrado (PR-2026-992)...' },
+            { sender: 'agent', text: '✉️ Solicitudes de presupuesto enviadas a 3 proveedores: Hops Direct, Maltas del Sur y Lúpulos Argentinos. Plazo máximo de respuesta: 1 hora.' }
+          ],
+          logs: [
+            { type: 'info', text: 'Generating RFQ templates from DB...' },
+            { type: 'cmd',  text: 'SMTP_SEND to hops_direct@supplier.com -> OK' },
+            { type: 'cmd',  text: 'SMTP_SEND to maltas_sur@supplier.com -> OK' },
+            { type: 'cmd',  text: 'SMTP_SEND to lupulos_arg@supplier.com -> OK' },
+            { type: 'info', text: 'Chaser listener activated: polling status...' }
+          ]
+        },
+        5: {
+          title: 'Paso 05: Análisis',
+          chat: [
+            { sender: 'agent', text: '📊 Respuestas de proveedores recibidas y analizadas. Creando cuadro comparativo...' },
+            { sender: 'agent', text: '• Hops Direct: $1,200 USD | Entrega: 24hs\n• Maltas del Sur: $1,150 USD | Entrega: 48hs\n• Lúpulos Arg: $1,300 USD | Entrega: 12hs' }
+          ],
+          logs: [
+            { type: 'info',    text: 'Incoming quotation parser active' },
+            { type: 'success', text: 'Quotation #1 received: $1,200 USD' },
+            { type: 'success', text: 'Quotation #2 received: $1,150 USD' },
+            { type: 'success', text: 'Quotation #3 received: $1,300 USD' },
+            { type: 'info',    text: 'Decision engine: Optimal Choice = Hops Direct (Price/Speed balanced)' }
+          ]
+        },
+        6: {
+          title: 'Paso 06: Cierre',
+          chat: [
+            { sender: 'agent', text: 'Opción óptima recomendada: Hops Direct (Entrega mañana). ¿Aprobás el despacho?' },
+            { sender: 'user',  text: 'Aprobado' },
+            { sender: 'agent', text: '🚀 PO-2026-8839 despachada a Hops Direct. Copia enviada a Administración. Entrega confirmada para mañana antes de las 12:00.' }
+          ],
+          logs: [
+            { type: 'info',    text: 'Authorization received from User #4812' },
+            { type: 'cmd',     text: 'POST /erp/api/purchase-order/generate' },
+            { type: 'success', text: 'PO-2026-8839 generated and signed' },
+            { type: 'cmd',     text: 'API_SEND to supplier ERP -> CONFIRMED' },
+            { type: 'success', text: 'Workflow closed with 0 manual inputs.' }
+          ]
+        }
+      },
+      en: {
+        1: {
+          title: 'Step 01: Reception',
+          chat: [
+            { sender: 'user', text: "Hi Colin, we urgently need 10 bags of Cascade hops and 5 of US-05 yeast for tomorrow's brewing. Can you quote and order?" }
+          ],
+          logs: [
+            { type: 'info', text: 'System listening on Telegram webhook...' },
+            { type: 'cmd',  text: 'GET /webhook/telegram/updates' },
+            { type: 'info', text: 'Webhook triggered: Message from User #4812' }
+          ]
+        },
+        2: {
+          title: 'Step 02: Validation',
+          chat: [
+            { sender: 'user',  text: 'Hi Colin, we urgently need 10 bags of Cascade hops and 5 of US-05 yeast...' },
+            { sender: 'agent', text: '⏳ Understood. Processing your order and identifying items in inventory...' }
+          ],
+          logs: [
+            { type: 'info',    text: 'Parsing text input (NLP processing)...' },
+            { type: 'cmd',     text: 'SELECT * FROM master_data.items WHERE alias ILIKE ANY (array["%cascade%", "%us-05%"])' },
+            { type: 'success', text: 'MATCH FOUND: [ID 492] - Cascade Hops (1kg bag)' },
+            { type: 'success', text: 'MATCH FOUND: [ID 892] - SafAle US-05 Yeast (500g box)' },
+            { type: 'info',    text: 'Validating against Supplier List...' }
+          ]
+        },
+        3: {
+          title: 'Step 03: Confirmation',
+          chat: [
+            { sender: 'user',  text: 'Hi Colin, we urgently need 10 bags of Cascade hops and 5 of US-05 yeast...' },
+            { sender: 'agent', text: "✅ Order successfully interpreted:\n• 10x Cascade Hops (1kg)\n• 5x SafAle US-05 Yeast\n\nI've registered Purchase Requisition (PR-2026-992). Starting quotation process..." }
+          ],
+          logs: [
+            { type: 'cmd',     text: 'POST /erp/api/purchase-requisition' },
+            { type: 'success', text: 'PR-2026-992 created successfully' },
+            { type: 'info',    text: 'Assigning category: BREWERY_RAW_MATERIALS' },
+            { type: 'info',    text: 'Triggering auto-quotation emails to authorized vendors...' }
+          ]
+        },
+        4: {
+          title: 'Step 04: Quotation',
+          chat: [
+            { sender: 'agent', text: '✅ Order registered (PR-2026-992)...' },
+            { sender: 'agent', text: '✉️ Request for quotes sent to 3 suppliers: Hops Direct, Maltas del Sur and Lúpulos Argentinos. Maximum response deadline: 1 hour.' }
+          ],
+          logs: [
+            { type: 'info', text: 'Generating RFQ templates from DB...' },
+            { type: 'cmd',  text: 'SMTP_SEND to hops_direct@supplier.com -> OK' },
+            { type: 'cmd',  text: 'SMTP_SEND to maltas_sur@supplier.com -> OK' },
+            { type: 'cmd',  text: 'SMTP_SEND to lupulos_arg@supplier.com -> OK' },
+            { type: 'info', text: 'Chaser listener activated: polling status...' }
+          ]
+        },
+        5: {
+          title: 'Step 05: Analysis',
+          chat: [
+            { sender: 'agent', text: '📊 Supplier responses received and analyzed. Building comparison table...' },
+            { sender: 'agent', text: '• Hops Direct: $1,200 USD | Delivery: 24hs\n• Maltas del Sur: $1,150 USD | Delivery: 48hs\n• Lúpulos Arg: $1,300 USD | Delivery: 12hs' }
+          ],
+          logs: [
+            { type: 'info',    text: 'Incoming quotation parser active' },
+            { type: 'success', text: 'Quotation #1 received: $1,200 USD' },
+            { type: 'success', text: 'Quotation #2 received: $1,150 USD' },
+            { type: 'success', text: 'Quotation #3 received: $1,300 USD' },
+            { type: 'info',    text: 'Decision engine: Optimal Choice = Hops Direct (Price/Speed balanced)' }
+          ]
+        },
+        6: {
+          title: 'Step 06: Closure',
+          chat: [
+            { sender: 'agent', text: 'Optimal option recommended: Hops Direct (Delivery tomorrow). Do you approve the dispatch?' },
+            { sender: 'user',  text: 'Approved' },
+            { sender: 'agent', text: '🚀 PO-2026-8839 dispatched to Hops Direct. Copy sent to Admin. Delivery confirmed for tomorrow before 12:00.' }
+          ],
+          logs: [
+            { type: 'info',    text: 'Authorization received from User #4812' },
+            { type: 'cmd',     text: 'POST /erp/api/purchase-order/generate' },
+            { type: 'success', text: 'PO-2026-8839 generated and signed' },
+            { type: 'cmd',     text: 'API_SEND to supplier ERP -> CONFIRMED' },
+            { type: 'success', text: 'Workflow closed with 0 manual inputs.' }
+          ]
+        }
+      }
+    };
+
+    // ── STATE ──
+    let currentLang = localStorage.getItem('syncro-lang') || 'es';
+    let currentStep = 1;
+    let autoplay = true;
+    let autoplayTimer = null;
+
+    // ── DOM REFS ──
+    const steps       = document.querySelectorAll('.step-card');
+    const screenTitle = document.getElementById('screen-title-step');
+    const tgFlow      = document.getElementById('tg-flow');
+    const erpLog      = document.getElementById('erp-log-flow');
+    const autoplayBtn = document.getElementById('autoplay-btn');
+    const controlIcon = document.getElementById('control-icon');
+    const controlText = document.getElementById('control-text');
+
+    // ── SIMULATOR ──
+    function selectStep(stepNum) {
+      currentStep = parseInt(stepNum);
+
+      steps.forEach(step => {
+        const num = parseInt(step.getAttribute('data-step'));
+        const isActive = num === currentStep;
+        step.classList.toggle('active', isActive);
+        step.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        step.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+
+      const data = stepData[currentLang][currentStep];
+      screenTitle.textContent = data.title;
+
+      tgFlow.innerHTML = '';
+      data.chat.forEach((msg, idx) => {
+        setTimeout(() => {
+          const bubble = document.createElement('div');
+          bubble.className = `tg-bubble ${msg.sender === 'user' ? 'tg-bubble-user' : 'tg-bubble-agent'}`;
+          bubble.innerHTML = msg.text.replace(/\n/g, '<br>');
+          tgFlow.appendChild(bubble);
+          tgFlow.scrollTop = tgFlow.scrollHeight;
+        }, idx * 200);
+      });
+
+      erpLog.innerHTML = '';
+      data.logs.forEach((log, idx) => {
+        setTimeout(() => {
+          const line = document.createElement('div');
+          line.className = `log-line ${log.type}`;
+          line.innerHTML = log.type === 'cmd'
+            ? `&gt; ${log.text}`
+            : `[${new Date().toLocaleTimeString('es-AR', { hour12: false })}] ${log.text}`;
+          erpLog.appendChild(line);
+          erpLog.scrollTop = erpLog.scrollHeight;
+        }, idx * 250);
+      });
+    }
+
+    function triggerAutoplay() {
+      if (!autoplay) return;
+      currentStep = currentStep >= 6 ? 1 : currentStep + 1;
+      selectStep(currentStep);
+    }
+
+    function startTimer() { autoplayTimer = setInterval(triggerAutoplay, 5000); }
+
+    function stopTimer() {
+      if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+    }
+
+    function setControlUI() {
+      if (autoplay) {
+        controlIcon.textContent = '⏸';
+        controlText.textContent = translations[currentLang]['ctrl-pause'];
+        autoplayBtn.setAttribute('aria-label', currentLang === 'es' ? 'Pausar Demo Autoejecutable' : 'Pause Autoplay Demo');
+      } else {
+        controlIcon.textContent = '▶';
+        controlText.textContent = translations[currentLang]['ctrl-play'];
+        autoplayBtn.setAttribute('aria-label', currentLang === 'es' ? 'Reproducir Demo Autoejecutable' : 'Play Autoplay Demo');
+      }
+    }
+
+    autoplayBtn.addEventListener('click', () => {
+      autoplay = !autoplay;
+      setControlUI();
+      autoplay ? startTimer() : stopTimer();
+    });
+
+    steps.forEach(step => {
+      step.addEventListener('click', () => {
+        autoplay = false;
+        setControlUI();
+        stopTimer();
+        selectStep(step.getAttribute('data-step'));
+      });
+      step.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); step.click(); }
+      });
+    });
+
+    const screenBody = document.querySelector('.screen-body');
+    screenBody.addEventListener('mouseenter', () => { if (autoplay) stopTimer(); });
+    screenBody.addEventListener('mouseleave', () => { if (autoplay && !autoplayTimer) startTimer(); });
+
+    // ── LANGUAGE SYSTEM ──
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('syncro-lang', lang);
+
+      document.documentElement.lang = lang;
+      document.title = translations[lang]['page-title'];
+      document.querySelector('meta[name="description"]').setAttribute('content', translations[lang]['page-desc']);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.textContent = translations[lang][el.dataset.i18n] || '';
+      });
+
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        el.innerHTML = translations[lang][el.dataset.i18nHtml] || '';
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = translations[lang][el.dataset.i18nPlaceholder] || '';
+      });
+
+      const stepsList = document.querySelector('.steps-list');
+      if (stepsList) stepsList.setAttribute('aria-label', translations[lang]['steps-aria']);
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        const isActive = btn.dataset.lang === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      setControlUI();
+      selectStep(currentStep);
+    }
+
+    // Lang switcher clicks
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+
+    // ── INIT ──
+    applyLang(currentLang);
+    startTimer();
+
+    // ── FORM HANDLER ──
+    const leadForm   = document.getElementById('lead-form');
+    const formSuccess = document.getElementById('form-success');
+
+    leadForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name  = document.getElementById('full-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!name || !email) {
+        alert(translations[currentLang]['form-validation']);
+        return;
+      }
+
+      const submitBtn = leadForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = translations[currentLang]['form-submitting'];
+
+      const json = JSON.stringify(Object.fromEntries(new FormData(leadForm)));
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: json
+      })
+      .then(async response => {
+        const res = await response.json();
+        if (response.status === 200) {
+          leadForm.style.display = 'none';
+          formSuccess.style.display = 'block';
+        } else {
+          alert(res.message || translations[currentLang]['form-error']);
+        }
+      })
+      .catch(() => alert(translations[currentLang]['form-error']))
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = translations[currentLang]['form-submit'];
+      });
+    });
+
+    // ── SMOOTH SCROLL ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const id = this.getAttribute('href');
+        if (id === '#') return;
+        const target = document.querySelector(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

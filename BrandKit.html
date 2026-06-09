@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syncro Ops — Brand Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Archivo:wght@800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #0D0F14;
+    --ink-soft:  #1C2030;
+    --surface:   #F4F3EE;
+    --surface-2: #E8E6DC;
+    --line:      #D0CEC2;
+    --accent:    #00D4A1;
+    --accent-2:  #FF5C3A;
+    --accent-3:  #2563FF;
+    --white:     #FFFFFF;
+    --mono:      'Space Mono', monospace;
+    --sans:      'DM Sans', sans-serif;
+    --display:   'Archivo', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--surface);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 60px 32px; }
+
+  section { margin-bottom: 80px; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 32px;
+    color: var(--ink);
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin-bottom: 80px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 320px;
+    margin-bottom: 80px;
+    border: 1px solid var(--ink);
+  }
+
+  .hero-left {
+    background: var(--ink);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .hero-right {
+    background: var(--accent);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .logo-mark {
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg { width: 18px; height: 18px; }
+
+  .hero-title {
+    font-family: var(--display);
+    font-size: 52px;
+    font-weight: 800;
+    line-height: .95;
+    color: var(--white);
+    letter-spacing: -.02em;
+  }
+
+  .hero-title span { color: var(--accent); }
+
+  .hero-tagline {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.45);
+    text-transform: uppercase;
+  }
+
+  .hero-right-title {
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .hero-right-body {
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .hero-right-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink);
+    opacity: .6;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+  }
+
+  /* ── LOGO ── */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .logo-variant {
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .lv-dark  { background: var(--ink); }
+  .lv-light { background: var(--surface); }
+  .lv-accent { background: var(--accent); }
+
+  .logo-full {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-sq {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-sq-dark  { background: var(--accent); }
+  .logo-sq-light { background: var(--ink); }
+  .logo-sq-accent-variant { background: var(--ink); }
+
+  .logo-wordmark {
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .logo-wordmark small {
+    display: block;
+    font-size: 9px;
+    letter-spacing: .18em;
+    font-weight: 700;
+    opacity: .55;
+    margin-top: 3px;
+  }
+
+  .lv-dark .logo-wordmark  { color: var(--white); }
+  .lv-light .logo-wordmark { color: var(--ink); }
+  .lv-accent .logo-wordmark { color: var(--ink); }
+
+  .logo-variant-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .45;
+  }
+  .lv-dark .logo-variant-label  { color: var(--white); }
+  .lv-light .logo-variant-label { color: var(--ink); }
+  .lv-accent .logo-variant-label { color: var(--ink); }
+
+  /* ── COLORS ── */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .color-swatch { overflow: hidden; }
+
+  .swatch-block {
+    height: 100px;
+  }
+
+  .swatch-info {
+    background: var(--white);
+    padding: 14px 16px;
+  }
+
+  .swatch-name {
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .swatch-hex {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 2px;
+  }
+
+  .swatch-role {
+    font-size: 11px;
+    color: #999;
+    font-style: italic;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .type-sample {
+    border: 1px solid var(--line);
+    margin-bottom: 1px;
+    overflow: hidden;
+  }
+
+  .type-header {
+    background: var(--ink-soft);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .type-header span {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+  }
+
+  .type-header strong {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+  }
+
+  .type-body {
+    background: var(--white);
+    padding: 28px 24px;
+  }
+
+  .t-display {
+    font-family: var(--display);
+    font-size: 56px;
+    font-weight: 800;
+    line-height: .9;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+
+  .t-heading {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .t-mono {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: .05em;
+  }
+
+  .t-body {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--ink);
+    max-width: 560px;
+    line-height: 1.65;
+  }
+
+  .t-caption {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* ── TAGLINES ── */
+  .tagline-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .tagline-card {
+    background: var(--white);
+    padding: 28px 24px;
+  }
+
+  .tagline-card.dark {
+    background: var(--ink);
+  }
+
+  .tagline-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .tagline-text {
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .tagline-card.dark .tagline-text { color: var(--white); }
+  .tagline-card.dark .tagline-label { color: var(--accent); }
+
+  /* ── UI COMPONENTS ── */
+  .components-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .comp-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 28px;
+  }
+
+  .comp-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 20px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-accent {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 11px 24px;
+    border: 2px solid var(--ink);
+    cursor: pointer;
+  }
+
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+
+  .badge-green  { background: var(--accent);  color: var(--ink); }
+  .badge-dark   { background: var(--ink);    color: var(--white); }
+  .badge-orange { background: var(--accent-2); color: var(--white); }
+  .badge-blue   { background: var(--accent-3); color: var(--white); }
+
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .card-example {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 20px;
+  }
+
+  .card-example-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .card-example-title {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .card-example-body {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .input-example {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 14px;
+    padding: 10px 14px;
+    border: 2px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+    margin-bottom: 10px;
+  }
+
+  /* ── EMAIL SIGNATURE ── */
+  .sig-preview {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 32px;
+    font-family: Arial, sans-serif;
+  }
+
+  .sig-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0D0F14;
+    margin-bottom: 2px;
+  }
+
+  .sig-title {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+
+  .sig-divider {
+    width: 32px;
+    height: 3px;
+    background: #00D4A1;
+    margin-bottom: 12px;
+  }
+
+  .sig-line {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  .sig-tagline {
+    font-size: 11px;
+    color: #999;
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  /* ── SOCIAL ── */
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .social-card {
+    background: var(--white);
+    padding: 24px;
+  }
+
+  .social-platform {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .social-handle {
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .social-bio {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  /* ── POST TEMPLATE ── */
+  .post-preview {
+    background: var(--ink);
+    padding: 40px;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 360px;
+  }
+
+  .post-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .post-title {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -.01em;
+  }
+
+  .post-title em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .post-logo {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+  }
+
+  .post-accent-bar {
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  /* ── VOICE & TONE ── */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .voice-card {
+    background: var(--white);
+    padding: 24px;
+  }
+
+  .voice-card.bad  { background: #FFF5F3; }
+  .voice-card.good { background: #F0FDF9; }
+
+  .voice-verdict {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .voice-verdict.bad  { color: var(--accent-2); }
+  .voice-verdict.good { color: var(--accent); }
+
+  .voice-quote {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  /* ── USAGE NOTES ── */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .note-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 20px;
+  }
+
+  .note-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .note-title {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .note-body {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero           { grid-template-columns: 1fr; }
+    .hero-title     { font-size: 36px; }
+    .color-grid     { grid-template-columns: repeat(3, 1fr); }
+    .logo-grid      { grid-template-columns: 1fr; }
+    .tagline-grid   { grid-template-columns: 1fr; }
+    .components-grid { grid-template-columns: 1fr; }
+    .social-grid    { grid-template-columns: 1fr; }
+    .notes-grid     { grid-template-columns: 1fr; }
+    .voice-grid     { grid-template-columns: 1fr; }
+    .t-display      { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HERO COVER -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="logo-mark">
+        <div class="logo-icon">
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="7" height="7" fill="#0D0F14"/>
+            <rect x="10" y="1" width="7" height="7" fill="#0D0F14"/>
+            <rect x="1" y="10" width="7" height="7" fill="#0D0F14"/>
+            <rect x="10" y="10" width="4" height="4" fill="#0D0F14"/>
+          </svg>
+        </div>
+        Brand Kit v1.0
+      </div>
+      <div>
+        <div class="hero-title">SYNCRO<br><span>OPS</span></div>
+      </div>
+      <div class="hero-tagline">Identidad Visual — 2025</div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-right-title">Brand Kit</div>
+      <div class="hero-right-body">
+        Colores · Tipografía · Logo · Componentes UI · Firma de email · Tono de comunicación
+      </div>
+      <div class="hero-right-sub">Tommy Campbell — Founder</div>
+    </div>
+  </div>
+
+  <!-- LOGO -->
+  <section>
+    <div class="section-label">01 — Logo</div>
+    <h2>Variantes del Logo</h2>
+    <div class="logo-grid">
+
+      <div class="logo-variant lv-dark">
+        <div class="logo-full">
+          <div class="logo-sq logo-sq-dark">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+              <rect x="1" y="1" width="9" height="9" fill="#0D0F14"/>
+              <rect x="14" y="1" width="9" height="9" fill="#0D0F14"/>
+              <rect x="1" y="14" width="9" height="9" fill="#0D0F14"/>
+              <rect x="14" y="14" width="5" height="5" fill="#0D0F14"/>
+            </svg>
+          </div>
+          <div class="logo-wordmark">
+            Syncro Ops
+            <small>Automatización · IA</small>
+          </div>
+        </div>
+        <div class="logo-variant-label">Positivo — fondo oscuro</div>
+      </div>
+
+      <div class="logo-variant lv-light">
+        <div class="logo-full">
+          <div class="logo-sq logo-sq-light" style="background:var(--ink);">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+              <rect x="1" y="1" width="9" height="9" fill="#00D4A1"/>
+              <rect x="14" y="1" width="9" height="9" fill="#00D4A1"/>
+              <rect x="1" y="14" width="9" height="9" fill="#00D4A1"/>
+              <rect x="14" y="14" width="5" height="5" fill="#00D4A1"/>
+            </svg>
+          </div>
+          <div class="logo-wordmark">
+            Syncro Ops
+            <small>Automatización · IA</small>
+          </div>
+        </div>
+        <div class="logo-variant-label">Principal — fondo claro</div>
+      </div>
+
+      <div class="logo-variant lv-accent">
+        <div class="logo-full">
+          <div class="logo-sq logo-sq-accent-variant" style="background:var(--ink);">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+              <rect x="1" y="1" width="9" height="9" fill="#00D4A1"/>
+              <rect x="14" y="1" width="9" height="9" fill="#00D4A1"/>
+              <rect x="1" y="14" width="9" height="9" fill="#00D4A1"/>
+              <rect x="14" y="14" width="5" height="5" fill="#00D4A1"/>
+            </svg>
+          </div>
+          <div class="logo-wordmark">
+            Syncro Ops
+            <small>Automatización · IA</small>
+          </div>
+        </div>
+        <div class="logo-variant-label">Sobre acento</div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:24px; background:var(--white); border:1px solid var(--line); padding:20px;">
+      <div class="section-label" style="margin-bottom:12px;">Ícono standalone (avatar / favicon)</div>
+      <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+        <div style="width:48px;height:48px;background:var(--ink);display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+            <rect x="1" y="1" width="9" height="9" fill="#00D4A1"/>
+            <rect x="14" y="1" width="9" height="9" fill="#00D4A1"/>
+            <rect x="1" y="14" width="9" height="9" fill="#00D4A1"/>
+            <rect x="14" y="14" width="5" height="5" fill="#00D4A1"/>
+          </svg>
+        </div>
+        <div style="width:48px;height:48px;background:var(--accent);display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+            <rect x="1" y="1" width="9" height="9" fill="#0D0F14"/>
+            <rect x="14" y="1" width="9" height="9" fill="#0D0F14"/>
+            <rect x="1" y="14" width="9" height="9" fill="#0D0F14"/>
+            <rect x="14" y="14" width="5" height="5" fill="#0D0F14"/>
+          </svg>
+        </div>
+        <div style="width:48px;height:48px;background:var(--surface-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+            <rect x="1" y="1" width="9" height="9" fill="#0D0F14"/>
+            <rect x="14" y="1" width="9" height="9" fill="#0D0F14"/>
+            <rect x="1" y="14" width="9" height="9" fill="#0D0F14"/>
+            <rect x="14" y="14" width="5" height="5" fill="#0D0F14"/>
+          </svg>
+        </div>
+        <div style="font-size:12px; color:#777; font-style:italic; max-width:260px;">
+          El ícono es una grilla de 4 cuadrados con el 4to incompleto — representa procesos en sincronía, automatización, y el "ops" que siempre tiene algo más por hacer.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- COLORES -->
+  <section>
+    <div class="section-label">02 — Paleta de Color</div>
+    <h2>Colores de Marca</h2>
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#0D0F14;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Ink</div>
+          <div class="swatch-hex">#0D0F14</div>
+          <div class="swatch-role">Primario · Texto · Fondo</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#00D4A1;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Sync</div>
+          <div class="swatch-hex">#00D4A1</div>
+          <div class="swatch-role">Acento · CTA · Éxito</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#F4F3EE;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Paper</div>
+          <div class="swatch-hex">#F4F3EE</div>
+          <div class="swatch-role">Fondo claro · Superficie</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#FF5C3A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Alert</div>
+          <div class="swatch-hex">#FF5C3A</div>
+          <div class="swatch-role">Urgente · Error · Destacado</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#2563FF;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Link</div>
+          <div class="swatch-hex">#2563FF</div>
+          <div class="swatch-role">Links · Info · Secundario</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px; background:var(--white); border:1px solid var(--line); padding:20px;">
+      <div class="section-label" style="margin-bottom:12px;">Reglas de uso</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:13px;color:#555;">
+        <div><strong style="color:var(--ink);">Ink + Paper</strong><br>Combinación base. 80% de todas las superficies.</div>
+        <div><strong style="color:var(--ink);">Sync (verde)</strong><br>Solo para acciones clave y momentos de éxito. No abuses.</div>
+        <div><strong style="color:var(--ink);">Alert + Link</strong><br>Para notificaciones y elementos secundarios. Con moderación.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TIPOGRAFÍA -->
+  <section>
+    <div class="section-label">03 — Tipografía</div>
+    <h2>Sistema Tipográfico</h2>
+
+    <div class="type-sample">
+      <div class="type-header">
+        <span>Display / Títulos</span>
+        <strong>Archivo 800</strong>
+      </div>
+      <div class="type-body">
+        <div class="t-display">Sincronizamos<br>su operación.</div>
+      </div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-header">
+        <span>Heading H2</span>
+        <strong>Archivo 800 — 28px</strong>
+      </div>
+      <div class="type-body">
+        <div class="t-heading">Automatización para PyMEs de alto rendimiento</div>
+      </div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-header">
+        <span>Labels / Etiquetas</span>
+        <strong>Space Mono 400 — 11px uppercase</strong>
+      </div>
+      <div class="type-body">
+        <div class="t-mono">// 01 — Caso de éxito · Discordia Cervecería</div>
+      </div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-header">
+        <span>Body / Cuerpo</span>
+        <strong>DM Sans 400 — 16px</strong>
+      </div>
+      <div class="type-body">
+        <div class="t-body">En 4 semanas su estructura operativa funciona de manera eficiente y sin fricciones. Automatizamos los flujos críticos: administración, órdenes e inventario. Permita que su equipo recupere el foco en lo estratégico: ventas, rentabilidad y expansión.</div>
+      </div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-header">
+        <span>Caption / Metadatos</span>
+        <strong>Space Mono 400 — 11px</strong>
+      </div>
+      <div class="type-body">
+        <div class="t-caption">Proyecto · Don Juan Barbería · Sistema de Turnos · Mayo 2025</div>
+      </div>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <!-- TAGLINES -->
+  <section>
+    <div class="section-label">04 — Mensajería</div>
+    <h2>Taglines y Frases Clave</h2>
+    <div class="tagline-grid">
+      <div class="tagline-card dark">
+        <div class="tagline-label">Tagline principal</div>
+        <div class="tagline-text">Sincronizamos la IA<br>con su estrategia.</div>
+      </div>
+      <div class="tagline-card">
+        <div class="tagline-label">Promesa de marca</div>
+        <div class="tagline-text">En 4 semanas diseñamos e<br>implementamos operaciones autónomas.</div>
+      </div>
+      <div class="tagline-card">
+        <div class="tagline-label">Pitch corto</div>
+        <div class="tagline-text">Reduzca la carga administrativa.<br>Optimice sus costos operativos.</div>
+      </div>
+      <div class="tagline-card dark">
+        <div class="tagline-label">Diferencial</div>
+        <div class="tagline-text">Hacemos que la IA trabaje para<br>su organización, no al revés.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- COMPONENTES UI -->
+  <section>
+    <div class="section-label">05 — Componentes UI</div>
+    <h2>Botones, Badges y Cards</h2>
+    <div class="components-grid">
+
+      <div class="comp-card">
+        <div class="comp-label">Botones</div>
+        <div class="btn-row">
+          <button class="btn-primary">Empezar ahora →</button>
+          <button class="btn-accent">Ver demo</button>
+          <button class="btn-outline">Contactar</button>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Badges / Estados</div>
+        <div class="badge-row" style="margin-bottom:12px;">
+          <span class="badge badge-green">✓ En producción</span>
+          <span class="badge badge-dark">GBS</span>
+          <span class="badge badge-orange">Crítico</span>
+          <span class="badge badge-blue">Optimizado</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge" style="background:var(--surface-2);color:var(--ink);">En progreso</span>
+          <span class="badge" style="background:transparent;border:1px solid var(--line);color:#777;">Planeado</span>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Card de Caso de Éxito</div>
+        <div class="card-example">
+          <div class="card-example-tag">Caso de éxito · Cervecería</div>
+          <div class="card-example-title">Discordia Cervecería</div>
+          <div class="card-example-body">Log automático de lotes vía WhatsApp. Reducción drástica de horas administrativas y trazabilidad en tiempo real.</div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Inputs de Formulario</div>
+        <input class="input-example" placeholder="Nombre de su empresa" type="text">
+        <input class="input-example" placeholder="Email corporativo" type="email">
+        <button class="btn-primary" style="width:100%;justify-content:center;">Agendar sesión estratégica →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FIRMA DE EMAIL -->
+  <section>
+    <div class="section-label">06 — Email</div>
+    <h2>Firma de Email</h2>
+    <div class="sig-preview">
+      <div class="sig-name">Tommy Campbell</div>
+      <div class="sig-title">Founder · Syncro Ops</div>
+      <div class="sig-divider"></div>
+      <div class="sig-line">📱 +54 9 [tu número]</div>
+      <div class="sig-line">✉️ tommy@syncroops.com.ar</div>
+      <div class="sig-line">🌐 syncroops.com.ar</div>
+      <div class="sig-line">💼 linkedin.com/in/tommycampbell</div>
+      <div class="sig-tagline">Sincronizamos la Inteligencia Artificial con su estrategia operativa.</div>
+    </div>
+    <div style="margin-top:16px;background:var(--white);border:1px solid var(--line);padding:16px;">
+      <div class="section-label" style="margin-bottom:8px;">Copy para copiar</div>
+      <pre style="font-family:var(--mono);font-size:11px;color:#555;white-space:pre-wrap;line-height:1.7;">Tommy Campbell
+Founder · Syncro Ops
+───────────────────────
+📱 +54 9 [número]
+✉️ tommy@syncroops.com.ar
+🌐 syncroops.com.ar
+💼 linkedin.com/in/[tu-perfil]
+
+"Sincronizamos la Inteligencia Artificial con su estrategia operativa."</pre>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- REDES SOCIALES -->
+  <section>
+    <div class="section-label">07 — Redes Sociales</div>
+    <h2>Perfiles y Bios</h2>
+    <div class="social-grid">
+      <div class="social-card">
+        <div class="social-platform">LinkedIn</div>
+        <div class="social-handle">@Tommy Campbell</div>
+        <div class="social-bio">🔧 Founder @SyncroOps | Automatización e Inteligencia Artificial para PyMEs | Ex Supply Chain (18 años de experiencia) | Eficiencia y escala operativa corporativa.</div>
+      </div>
+      <div class="social-card">
+        <div class="social-platform">Instagram / Threads</div>
+        <div class="social-handle">@syncroops.ar</div>
+        <div class="social-bio">Automatización y eficiencia para PyMEs con Inteligencia Artificial 🤖⚙️ Transición de sistemas tradicionales a operaciones autónomas. Casos reales y soluciones pragmáticas.</div>
+      </div>
+      <div class="social-card">
+        <div class="social-platform">WhatsApp Bio</div>
+        <div class="social-handle">Tommy · Syncro Ops</div>
+        <div class="social-bio">Automatización e Inteligencia Artificial para PyMEs. Contáctenos para optimizar la eficiencia y escala de su operation 🚀</div>
+      </div>
+    </div>
+
+    <!-- POST TEMPLATE -->
+    <div style="margin-top:24px;">
+      <div class="section-label" style="margin-bottom:12px;">Template de post (1:1)</div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+        <div class="post-preview">
+          <div class="post-tag">// Caso de éxito</div>
+          <div class="post-title">
+            De WhatsApp<br>manual a<br><em>cero errores</em><br>de inventario.
+          </div>
+          <div class="post-footer">
+            <div>
+              <div class="post-accent-bar"></div>
+              <div class="post-logo">Syncro Ops</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;">Discordia Cervecería</div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:220px;">
+          <div class="section-label" style="margin-bottom:10px;">Estructura de caption</div>
+          <div style="font-size:13px;color:#555;line-height:1.8;">
+            <strong style="color:var(--ink);">Hook (1 línea):</strong> El desafío operativo descripto con claridad.<br>
+            <strong style="color:var(--ink);">Situación:</strong> Diagnóstico inicial previo a la automatización (2–3 líneas).<br>
+            <strong style="color:var(--ink);">Solución:</strong> Implementación estratégica de flujos integrados (2–3 líneas).<br>
+            <strong style="color:var(--ink);">Resultado:</strong> Métrica de rentabilidad u optimización de tiempos.<br>
+            <strong style="color:var(--ink);">CTA:</strong> "Si busca mitigar la fricción operativa en su empresa, coordinemos una sesión estratégica."<br><br>
+            <strong style="color:var(--ink);">Hashtags:</strong><br>
+            <span style="color:var(--accent);font-family:var(--mono);font-size:11px;">#automatizacion #pymes #eficiencia #inteligenciaartificial #operaciones</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- VOZ Y TONO -->
+  <section>
+    <div class="section-label">08 — Voz y Tono</div>
+    <h2>Cómo habla Syncro Ops</h2>
+    <div class="voice-grid">
+      <div class="voice-card bad">
+        <div class="voice-verdict bad">❌ No decimos (Corporativo abstracto)</div>
+        <div class="voice-quote">"Implementamos soluciones de automatización end-to-end con arquitecturas cloud-native y workflows de IA generativa para optimizar la eficiencia operacional."</div>
+      </div>
+      <div class="voice-card good">
+        <div class="voice-verdict good">✅ Decimos (Autoridad Pragmática)</div>
+        <div class="voice-quote">"Desplegamos integraciones ágiles y modelos avanzados de IA en semanas, garantizando una transición fluida y sin interrumpir su operación actual."</div>
+      </div>
+      <div class="voice-card bad">
+        <div class="voice-verdict bad">❌ No decimos (Largo o Improvisado)</div>
+        <div class="voice-quote">"El proyecto requiere un análisis exhaustivo de requerimientos y un roadmap de 6 meses con fases de discovery, design, development y deployment."</div>
+      </div>
+      <div class="voice-card good">
+        <div class="voice-verdict good">✅ Decimos (Autoridad Pragmática)</div>
+        <div class="voice-quote">"Trabajamos bajo metodologías de validación iterativa: entregamos un producto mínimo viable automatizado antes de escalar la inversión."</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);">
+      <div style="background:var(--white);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Somos</div>
+        <div style="font-family:var(--display);font-size:13px;font-weight:800;color:var(--ink);">Directos</div>
+      </div>
+      <div style="background:var(--white);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Somos</div>
+        <div style="font-family:var(--display);font-size:13px;font-weight:800;color:var(--ink);">Pragmáticos</div>
+      </div>
+      <div style="background:var(--white);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Somos</div>
+        <div style="font-family:var(--display);font-size:13px;font-weight:800;color:var(--ink);">Transparentes</div>
+      </div>
+      <div style="background:var(--white);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">No somos</div>
+        <div style="font-family:var(--display);font-size:13px;font-weight:800;color:var(--accent-2);">Fríos</div>
+      </div>
+      <div style="background:var(--white);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">No somos</div>
+        <div style="font-family:var(--display);font-size:13px;font-weight:800;color:var(--accent-2);">Informales</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGLAS DE USO -->
+  <section>
+    <div class="section-label">09 — Reglas de Uso</div>
+    <h2>Qué hacer y qué no hacer</h2>
+    <div class="notes-grid">
+      <div class="note-card">
+        <div class="note-icon">✅</div>
+        <div class="note-title">Logo con espacio</div>
+        <div class="note-body">Siempre dejar margen alrededor del ícono. Mínimo equivalente al alto del ícono en todos sus lados.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-icon">✅</div>
+        <div class="note-title">Verde con moderación</div>
+        <div class="note-body">El color #00D4A1 es poderoso. Usarlo solo en CTAs, checkmarks y momentos de éxito. No como fondo general.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-icon">✅</div>
+        <div class="note-title">Fuentes de Google</div>
+        <div class="note-body">Archivo + DM Sans + Space Mono están en Google Fonts. Gratis y cargables en cualquier plataforma.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-icon">❌</div>
+        <div class="note-title">No cambiar colores del logo</div>
+        <div class="note-body">El ícono es verde sobre oscuro, o verde sobre blanco. No invertir, no usar otros colores.</div>
+      </div>
+      <div class="note-card">
+        <div class="note-icon">❌</div>
+        <div class="note-title">No estirar el logo</div>
+        <div class="note-body">Escalar proporcionalmente siempre. Si hay que achicar mucho, usar solo el ícono (sin texto).</div>
+      </div>
+      <div class="note-card">
+        <div class="note-icon">❌</div>
+        <div class="note-title">No usar Arial/Roboto</div>
+        <div class="note-body">Si las fuentes no cargan (PDF, email), usar Georgia para títulos y Arial solo como fallback mínimo.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
